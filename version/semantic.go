@@ -2,7 +2,7 @@ package version
 
 import (
 	l "github.com/faelmori/logz"
-	gl "github.com/rafa-mori/gobe/logger"
+	gl "github.com/rafa-mori/smart_plane/logger"
 
 	"github.com/spf13/cobra"
 
@@ -16,9 +16,9 @@ import (
 	"time"
 )
 
-const moduleAlias = "GoBE"
-const moduleName = "gobe"
-const gitModelUrl = "https://github.com/faelmori/" + moduleName + ".git"
+const moduleAlias = "SmartPlane"
+const moduleName = "smart_plane"
+const gitModelUrl = "https://github.com/rafa-mori/" + moduleName + ".git"
 const currentVersionFallback = "v1.0.1" // First version with the version file
 
 type Service interface {

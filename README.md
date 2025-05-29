@@ -21,7 +21,7 @@ smart-plane
 │   ├── scripts                  # 🔄 Scripts para inicialização e deploy
 │   └── start-network.sh         # 🚀 Script para levantar a rede Fabric
 │
-├── api                          # 🌐 Interface RESTful para comunicação com `gobe`
+├── api                          # 🌐 Interface RESTful para comunicação com `smart_plane`
 │   ├── handlers                 # 📩 Manipuladores de requisições HTTP
 │   ├── middleware               # 🔐 Controle de autenticação e segurança
 │   ├── routes.go                # 🛣️ Definição das rotas da API

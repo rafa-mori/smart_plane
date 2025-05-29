@@ -10,33 +10,33 @@ import (
 	"strings"
 )
 
-type GoBE struct {
+type SmartPlane struct {
 	parentCmdName string
 	printBanner   bool
 }
 
-func (m *GoBE) Alias() string { return "" }
-func (m *GoBE) ShortDescription() string {
-	return "GoBE is a minimalistic backend service with Go."
+func (m *SmartPlane) Alias() string { return "" }
+func (m *SmartPlane) ShortDescription() string {
+	return "SmartPlane is a minimalistic backend service with Go."
 }
-func (m *GoBE) LongDescription() string {
-	return `GoBE: A minimalistic backend service with Go.`
+func (m *SmartPlane) LongDescription() string {
+	return `SmartPlane: A minimalistic backend service with Go.`
 }
-func (m *GoBE) Usage() string {
-	return "gobe [command] [args]"
+func (m *SmartPlane) Usage() string {
+	return "smart_plane [command] [args]"
 }
-func (m *GoBE) Examples() []string {
-	return []string{"gobe start -p ':8080' -b '0.0.0.0' -n 'MyService' -d"}
+func (m *SmartPlane) Examples() []string {
+	return []string{"smart_plane start -p ':8080' -b '0.0.0.0' -n 'MyService' -d"}
 }
-func (m *GoBE) Active() bool {
+func (m *SmartPlane) Active() bool {
 	return true
 }
-func (m *GoBE) Module() string {
-	return "gobe"
+func (m *SmartPlane) Module() string {
+	return "smart_plane"
 }
-func (m *GoBE) Execute() error { return m.Command().Execute() }
-func (m *GoBE) Command() *cobra.Command {
-	gl.Log("debug", "Starting GoBE CLI...")
+func (m *SmartPlane) Execute() error { return m.Command().Execute() }
+func (m *SmartPlane) Command() *cobra.Command {
+	gl.Log("debug", "Starting SmartPlane CLI...")
 
 	var rtCmd = &cobra.Command{
 		Use:     m.Module(),
@@ -49,8 +49,9 @@ func (m *GoBE) Command() *cobra.Command {
 		}, m.printBanner),
 	}
 
-	rtCmd.AddCommand(cc.CertificatesCmdList())
-	rtCmd.AddCommand(cc.ServiceCmdList()...)
+	// rtCmd.AddCommand(cc.CertificatesCmdList())
+	// rtCmd.AddCommand(cc.ServiceCmdList()...)
+
 	rtCmd.AddCommand(vs.CliCommand())
 
 	// Set usage definitions for the command and its subcommands
@@ -66,10 +67,10 @@ func (m *GoBE) Command() *cobra.Command {
 
 	return rtCmd
 }
-func (m *GoBE) SetParentCmdName(rtCmd string) {
+func (m *SmartPlane) SetParentCmdName(rtCmd string) {
 	m.parentCmdName = rtCmd
 }
-func (m *GoBE) concatenateExamples() string {
+func (m *SmartPlane) concatenateExamples() string {
 	examples := ""
 	rtCmd := m.parentCmdName
 	if rtCmd != "" {
@@ -81,13 +82,13 @@ func (m *GoBE) concatenateExamples() string {
 	return examples
 }
 
-func RegX() *GoBE {
+func RegX() *SmartPlane {
 	var printBannerV = os.Getenv("GOBEMIN_PRINT_BANNER")
 	if printBannerV == "" {
 		printBannerV = "true"
 	}
 
-	return &GoBE{
+	return &SmartPlane{
 		printBanner: strings.ToLower(printBannerV) == "true",
 	}
 }

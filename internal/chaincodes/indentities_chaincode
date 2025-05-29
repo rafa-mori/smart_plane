@@ -1,0 +1,22 @@
+package main
+
+import (
+	"github.com/hyperledger/fabric-contract-api-go/contractapi"
+	i "github.com/rafa-mori/smart_plane/internal/smart_contracts/identities"
+)
+
+// Implementação do Chaincode
+type IdentityChaincode struct {
+	IdentityBase i.IdentityBase
+}
+
+func main() {
+	chaincode, err := contractapi.NewChaincode(new(IdentityChaincode))
+	if err != nil {
+		panic("Erro ao criar Chaincode: " + err.Error())
+	}
+
+	if err := chaincode.Start(); err != nil {
+		panic("Erro ao iniciar Chaincode: " + err.Error())
+	}
+}

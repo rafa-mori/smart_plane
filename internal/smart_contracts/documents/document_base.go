@@ -1,4 +1,4 @@
-package main
+package documents
 
 import (
 	"encoding/json"
@@ -7,8 +7,10 @@ import (
 	"github.com/hyperledger/fabric-contract-api-go/contractapi"
 )
 
-// Document representa um registro na blockchain
-type Document struct {
+// Estrutura do documento registrado na blockchain
+type DocumentBase struct {
+	contractapi.Contract
+
 	ID        string `json:"id"`
 	Hash      string `json:"hash"`
 	Owner     string `json:"owner"`
@@ -16,14 +18,9 @@ type Document struct {
 	Validated bool   `json:"validated"`
 }
 
-// SmartContract implementa o Chaincode
-type SmartContract struct {
-	contractapi.Contract
-}
-
-// Criar um novo documento
-func (s *SmartContract) CreateDocument(ctx contractapi.TransactionContextInterface, id string, hash string, owner string, timestamp string) error {
-	exists, err := s.DocumentExists(ctx, id)
+// Criar um novo documento na blockchain
+func (dc *DocumentBase) CreateDocument(ctx contractapi.TransactionContextInterface, id string, hash string, owner string, timestamp string) error {
+	exists, err := dc.DocumentExists(ctx, id)
 	if err != nil {
 		return err
 	}
@@ -31,7 +28,7 @@ func (s *SmartContract) CreateDocument(ctx contractapi.TransactionContextInterfa
 		return fmt.Errorf("documento %s já existe", id)
 	}
 
-	document := Document{
+	document := DocumentBase{
 		ID:        id,
 		Hash:      hash,
 		Owner:     owner,
@@ -47,8 +44,8 @@ func (s *SmartContract) CreateDocument(ctx contractapi.TransactionContextInterfa
 	return ctx.GetStub().PutState(id, documentJSON)
 }
 
-// Consultar um documento pelo ID
-func (s *SmartContract) GetDocument(ctx contractapi.TransactionContextInterface, id string) (*Document, error) {
+// Consultar um documento na blockchain
+func (dc *DocumentBase) GetDocument(ctx contractapi.TransactionContextInterface, id string) (*DocumentBase, error) {
 	documentJSON, err := ctx.GetStub().GetState(id)
 	if err != nil {
 		return nil, fmt.Errorf("falha ao obter documento: %v", err)
@@ -57,7 +54,7 @@ func (s *SmartContract) GetDocument(ctx contractapi.TransactionContextInterface,
 		return nil, fmt.Errorf("documento %s não encontrado", id)
 	}
 
-	var document Document
+	var document DocumentBase
 	err = json.Unmarshal(documentJSON, &document)
 	if err != nil {
 		return nil, err
@@ -67,8 +64,8 @@ func (s *SmartContract) GetDocument(ctx contractapi.TransactionContextInterface,
 }
 
 // Atualizar um documento (caso necessário)
-func (s *SmartContract) UpdateDocument(ctx contractapi.TransactionContextInterface, id string, newOwner string) error {
-	document, err := s.GetDocument(ctx, id)
+func (dc *DocumentBase) UpdateDocument(ctx contractapi.TransactionContextInterface, id string, newOwner string) error {
+	document, err := dc.GetDocument(ctx, id)
 	if err != nil {
 		return err
 	}
@@ -82,9 +79,22 @@ func (s *SmartContract) UpdateDocument(ctx contractapi.TransactionContextInterfa
 	return ctx.GetStub().PutState(id, documentJSON)
 }
 
-// Validar um documento
-func (s *SmartContract) ValidateDocument(ctx contractapi.TransactionContextInterface, id string) error {
-	document, err := s.GetDocument(ctx, id)
+// Deletar um documento do state, não do histórico
+func (dc *DocumentBase) DeleteDocument(ctx contractapi.TransactionContextInterface, id string) error {
+	exists, err := dc.DocumentExists(ctx, id)
+	if err != nil {
+		return err
+	}
+	if !exists {
+		return fmt.Errorf("documento %s não encontrado", id)
+	}
+
+	return ctx.GetStub().DelState(id)
+}
+
+// Validar um documento registrado
+func (dc *DocumentBase) ValidateDocument(ctx contractapi.TransactionContextInterface, id string) error {
+	document, err := dc.GetDocument(ctx, id)
 	if err != nil {
 		return err
 	}
@@ -98,25 +108,12 @@ func (s *SmartContract) ValidateDocument(ctx contractapi.TransactionContextInter
 	return ctx.GetStub().PutState(id, documentJSON)
 }
 
-// Verificar se um documento já existe
-func (s *SmartContract) DocumentExists(ctx contractapi.TransactionContextInterface, id string) (bool, error) {
+// Verifica se o documento já existe
+func (dc *DocumentBase) DocumentExists(ctx contractapi.TransactionContextInterface, id string) (bool, error) {
 	documentJSON, err := ctx.GetStub().GetState(id)
 	if err != nil {
 		return false, fmt.Errorf("falha ao verificar documento: %v", err)
 	}
 
 	return documentJSON != nil, nil
-}
-
-// Função principal
-func main() {
-	chaincode, err := contractapi.NewChaincode(new(SmartContract))
-	if err != nil {
-		fmt.Printf("Erro ao criar Chaincode: %v", err)
-		return
-	}
-
-	if err := chaincode.Start(); err != nil {
-		fmt.Printf("Erro ao iniciar Chaincode: %v", err)
-	}
 }

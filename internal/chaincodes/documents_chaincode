@@ -1,0 +1,27 @@
+package main
+
+import (
+	"fmt"
+
+	"github.com/hyperledger/fabric-contract-api-go/contractapi"
+
+	d "github.com/rafa-mori/smart_plane/internal/smart_contracts/documents"
+)
+
+// Implementação do Chaincode
+type DocumentChaincode struct {
+	DocumentBase d.DocumentBase
+}
+
+// Função principal
+func main() {
+	chaincode, err := contractapi.NewChaincode(new(DocumentChaincode))
+	if err != nil {
+		fmt.Printf("Erro ao criar Chaincode: %v", err)
+		return
+	}
+
+	if err := chaincode.Start(); err != nil {
+		fmt.Printf("Erro ao iniciar Chaincode: %v", err)
+	}
+}
