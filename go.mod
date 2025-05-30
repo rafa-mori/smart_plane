@@ -6,7 +6,9 @@ require (
 	github.com/faelmori/logz v1.2.0
 	github.com/fatih/color v1.18.0
 	github.com/google/uuid v1.6.0
+	github.com/hyperledger/fabric-chaincode-go v0.0.0-20240704073638-9fb89180dc17
 	github.com/hyperledger/fabric-contract-api-go v1.2.2
+	github.com/rafa-mori/smart_documents v0.0.0-00010101000000-000000000000
 	github.com/spf13/cobra v1.9.1
 )
 
@@ -22,7 +24,6 @@ require (
 	github.com/gobuffalo/packr v1.30.1 // indirect
 	github.com/godbus/dbus/v5 v5.1.0 // indirect
 	github.com/golang/protobuf v1.5.4 // indirect
-	github.com/hyperledger/fabric-chaincode-go v0.0.0-20240704073638-9fb89180dc17 // indirect
 	github.com/hyperledger/fabric-protos-go v0.3.7 // indirect
 	github.com/inconshreveable/mousetrap v1.1.0 // indirect
 	github.com/joho/godotenv v1.5.1 // indirect
@@ -54,3 +55,6 @@ require (
 )
 
 //replace github.com/rafa-mori/gdbase => ../gdbase
+replace github.com/rafa-mori/smart_documents => ../smart_documents
+
+replace github.com/rafa-mori/smart_identity => ../smart_identity
