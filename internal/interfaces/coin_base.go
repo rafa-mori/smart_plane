@@ -7,5 +7,5 @@ type ICoinBase interface {
 	GetCoinBase(ctx contractapi.TransactionContextInterface, id string) (ICoinBase, error)
 	DeleteCoinBase(ctx contractapi.TransactionContextInterface, id string) error
 	CoinBaseExists(ctx contractapi.TransactionContextInterface, id string) (bool, error)
-	CoinBaseHistory(ctx contractapi.TransactionContextInterface, id string) ([]ICoinBase, error)
+	HistoryCoinBase(ctx contractapi.TransactionContextInterface, id string) ([]ICoinBase, error)
 }

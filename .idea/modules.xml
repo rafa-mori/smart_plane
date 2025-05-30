@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/../booster/.idea/booster.iml" filepath="$PROJECT_DIR$/../booster/.idea/booster.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../gobe/.idea/gobemin.iml" filepath="$PROJECT_DIR$/../gobe/.idea/gobemin.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../smart_coins/.idea/smart_coins.iml" filepath="$PROJECT_DIR$/../smart_coins/.idea/smart_coins.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../smart_documents/.idea/smart_documents.iml" filepath="$PROJECT_DIR$/../smart_documents/.idea/smart_documents.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../smart_identity/.idea/smart_identity.iml" filepath="$PROJECT_DIR$/../smart_identity/.idea/smart_identity.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/smart_plane.iml" filepath="$PROJECT_DIR$/.idea/smart_plane.iml" />
+    </modules>
+  </component>
+</project>
