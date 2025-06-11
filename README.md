@@ -1,98 +1,145 @@
 # Smart Plane
 
-Smart Plane é um projeto inovador que combina a tecnologia de contratos inteligentes com a infraestrutura de Hyperledger Fabric para criar uma plataforma segura e escalável para gestão de documentos e transações. Este repositório contém o código-fonte, documentação e recursos necessários para desenvolver, implantar e manter o sistema.
+![Smart Plane Banner](docs/assets/top_banner.png)
 
-## Estrutura do Repositório
+[![Go](https://img.shields.io/badge/Go-1.19+-00ADD8?logo=go&logoColor=white)](https://go.dev/)
+[![License: MIT](https://img.shields.io/badge/license-MIT-green.svg)](https://github.com/rafa-mori/smart_plane/blob/main/LICENSE)
+[![Automation](https://img.shields.io/badge/automation-smart%20contracts-blue)](#features)
+
+---
+
+**Smart Plane é uma plataforma modular para contratos inteligentes, autenticação, validação e gestão de documentos sobre Hyperledger Fabric, com API extensível e arquitetura Go idiomática.**
+
+---
+
+## **Table of Contents**
+
+1. [About the Project](#about-the-project)
+2. [Features](#features)
+3. [Project Structure](#project-structure)
+4. [Core Components](#core-components)
+5. [Installation](#installation)
+6. [Usage](#usage)
+7. [Roadmap](#roadmap)
+8. [Contributing](#contributing)
+9. [Contact](#contact)
+
+---
+
+## **About the Project**
+
+Smart Plane combina contratos inteligentes, autenticação robusta, validação extensível e integração com Hyperledger Fabric para criar uma base segura e escalável para aplicações de documentos, identidades e transações. O núcleo é altamente modular, com tipos e interfaces exportados para fácil extensão e integração.
+
+---
+
+## **Features**
+
+- 🔗 **Contratos inteligentes plugáveis** (Approval, Signature, Traffic, etc.)
+- 🔒 **Autenticação JWT e gerenciamento de chaves RSA**
+- 🧩 **Validação extensível e listeners de eventos**
+- 🛠️ **API Go idiomática e interfaces para integração**
+- 📦 **Arquitetura modular e fácil de manter**
+- 📝 **Documentação e tipos exportados para uso externo**
+
+---
+
+## **Project Structure**
 
 ```plaintext
-smart-plane
-│
-├── chaincode                    # 📜 Código dos contratos inteligentes (Hyperledger Fabric)
-│   ├── document_chaincode       # 📝 Chaincode para registros de documentos
-│   ├── identity_chaincode       # 🔐 Chaincode para gestão de identidades e permissões
-│   ├── transaction_chaincode    # 🔄 Chaincode para validação de transações
-│   ├── utils.go                 # 🛠️ Funções auxiliares e segurança
-│   └── main.go                  # 🚀 Arquivo de inicialização do chaincode
-│
-├── network                      # ⚡ Configuração da rede Hyperledger Fabric
-│   ├── config.yaml              # 🔧 Configuração dos peers, canais e ordens
-│   ├── crypto-config            # 🔑 Certificados TLS e Autoridades Certificadoras
-│   ├── docker-compose.yml       # 🐳 Arquivo para orquestração via Docker
-│   ├── scripts                  # 🔄 Scripts para inicialização e deploy
-│   └── start-network.sh         # 🚀 Script para levantar a rede Fabric
-│
-├── api                          # 🌐 Interface RESTful para comunicação com `smart_plane`
-│   ├── handlers                 # 📩 Manipuladores de requisições HTTP
-│   ├── middleware               # 🔐 Controle de autenticação e segurança
-│   ├── routes.go                # 🛣️ Definição das rotas da API
-│   └── main.go                  # 🚀 Inicialização do servidor REST
-│
-├── clients                      # 🏛️ Aplicações cliente para interação com `smart-plane`
-│   ├── web                      # 🌍 Interface web para visualizar registros
-│   ├── cli                      # 🖥️ Ferramenta CLI para gerenciar contratos via terminal
-│   ├── mobile                   # 📱 Aplicação mobile para usuários finais
-│   └── sdk-go                   # 🏗️ SDK em Go para integração de terceiros
-│
-├── tests                          # ✅ Testes automatizados de contrato e API
-│   ├── chaincode_test.go        # 🔍 Testes unitários dos contratos inteligentes
-│   ├── api_test.go              # 🔥 Testes de integração da API REST
-│   ├── security_test.go         # 🛡️ Testes de segurança e permissões
-│   └── performance_test.go      # 🚀 Testes de desempenho da rede Fabric
-│
-├── docs                           # 📖 Documentação do projeto
-│   ├── architecture.md          # 🏗️ Especificação arquitetural do `smart-plane`
-│   ├── api-reference.md         # 🌐 Documentação da API REST
-│   ├── smart-contracts.md       # 📜 Explicação dos contratos inteligentes
-│   ├── roadmap.md               # 🚀 Planejamento de evolução do projeto
-│   └── diagrams                 # 📊 Diagramas técnicos de integração
-│
-├── README.md                    # 📌 Guia inicial do projeto
-├── LICENSE                      # ⚖️ Licença do repositório
-├── .gitignore                   # 🚫 Ignorar arquivos irrelevantes no Git
-└── go.mod                       # 🏗️ Dependências do projeto em Go
+./
+├── api                  # Exposed API for external integrations
+├── cmd                  # Command line interface
+├── flight.go            # Main exported interface for the module
+├── internal
+│   ├── authentication   # Authentication related functionalities
+│   ├── interfaces       # Types abstraction for modularity and exported API
+│   └── smart_contracts  # Smart contract related functionalities
+├── logger               # Logging utilities
+├── smart_plane.go       # Main entry point for the smart plane module
+├── types                # Type definitions for the module (exported)
+└── version              # Versioning services and utilities
 ```
 
-## Tecnologias Utilizadas
+---
 
-### Infraestrutura e Ferramentas
+## **Core Components**
 
-- **Go**: Linguagem de programação para o backend, escolhida por sua eficiência e escalabilidade.
-- **Hyperledger Fabric**: Framework de blockchain para a criação de redes permissionadas.
-- **Docker**: Plataforma para containerização e orquestração de serviços.
-- **Kubernetes**: Sistema de orquestração de containers para automação de implantação, escalonamento e gerenciamento.
+### `flight.go`
 
-### Banco de Dados e Armazenamento
+- Interface principal exportada do módulo. Centraliza a inicialização e integração dos principais serviços do Smart Plane.
 
-- **PostgreSQL**: Sistema de gerenciamento de banco de dados relacional utilizado para armazenamento de dados.
-- **MongoDB**: Banco de dados NoSQL para armazenamento de documentos e dados não estruturados.
-- **RabbitMQ**: Sistema de mensageria para comunicação assíncrona entre serviços.
-- **gRPC**: Framework de comunicação eficiente entre serviços, utilizado para a API.
-- **Redis**: Armazenamento em cache para melhorar a performance e reduzir latência.
+### `internal/authentication/auth_manager.go`
 
-### Segurança e Autenticação
+- Gerenciamento de autenticação JWT.
+- Geração e validação de tokens de acesso e refresh.
+- Integração com serviços de certificados RSA.
 
-- **Sigstore**: Sistema de assinatura digital para garantir a autenticidade dos registros.
-- **Cosign**: Ferramenta para assinatura de imagens de container, garantindo integridade e autenticidade.
+### `internal/smart_contracts/`
 
-### Interface do Usuário
+- **injection.go**: Estruturas e métodos para injeção de contratos, gerenciamento de chaves, requests e erros.
+- **metadata.go**: Estruturas base para metadados de contratos inteligentes (ID, nome, versão, owner, etc).
+- **smart_plane.go**: BlockchainManager para registro, consulta, aprovação, assinatura e exclusão de documentos em contratos inteligentes (Approval, Signature, Traffic).
+- **state_content.go**: Estrutura genérica para resposta de contratos, com tipagem dinâmica.
 
-- **React**: Biblioteca JavaScript para construção de interfaces de usuário dinâmicas e responsivas.
-- **Flutter**: Framework para desenvolvimento de aplicativos móveis multiplataforma, permitindo uma experiência consistente em iOS e Android.
+### `types/`
 
-## Contribuindo
+- **reference.go**: Tipos e utilitários para identificação única e nomeação de entidades.
+- **validation.go**: Infraestrutura de validação extensível, com funções, resultados, prioridades e integração com interfaces.
+- **validation_listener.go**: Sistema de listeners para eventos de validação, com filtros, handlers e registro dinâmico.
 
-Contribuições são bem-vindas! Sinta-se à vontade para abrir issues, enviar pull requests ou discutir melhorias no projeto. Consulte o arquivo `CONTRIBUTING.md` para mais detalhes sobre como contribuir.
+---
 
-## Licença
+## **Installation**
 
-Este projeto está licenciado sob a Licença MIT. Consulte o arquivo `LICENSE` para mais informações.
+Requisitos:
 
-## Contato
+- Go 1.19+
+- Hyperledger Fabric (para uso blockchain)
 
-Para dúvidas, sugestões ou colaborações, entre em contato!  
+Clone o repositório e compile:
 
-[Gmail](mailto:faelmori@gmail.com)
+```sh
+git clone https://github.com/rafa-mori/smart_plane.git
+cd smart_plane
+go build -o smart_plane .
+```
 
-[GitHub](https://github.com/faelmori)
+---
 
-[Linkedin](https://www.linkedin.com/in/rafa-mori)
+## **Usage**
+
+- Importe o módulo em seu projeto Go ou utilize como serviço standalone.
+- Exemplo de inicialização do BlockchainManager:
+
+```go
+bm := smart_plane.NewBlockchainManager()
+err := bm.RegisterDocument("ApprovalContract", "doc123", "conteúdo do documento")
+```
+
+- Para autenticação, utilize o AuthManager para geração e validação de tokens JWT.
+
+---
+
+## **Roadmap**
+
+- [x] Núcleo modular para contratos inteligentes
+- [x] Autenticação JWT e gerenciamento de chaves
+- [x] Infraestrutura de validação extensível
+- [x] Listeners de eventos de validação
+- [ ] Suporte a novos tipos de contratos
+- [ ] Dashboard web para monitoramento
+
+---
+
+## **Contributing**
+
+Contribuições são bem-vindas! Sinta-se à vontade para abrir issues ou enviar pull requests. Veja o [Guia de Contribuição](docs/CONTRIBUTING.md) para mais detalhes.
+
+---
+
+## **Contact**
+
+💌 **Developer**:  
+[Rafael Mori](mailto:faelmori@gmail.com)  
+💼 [Follow me on GitHub](https://github.com/rafa-mori)  
+Estou aberto a colaborações e novas ideias. Se achou o projeto interessante, entre em contato!
