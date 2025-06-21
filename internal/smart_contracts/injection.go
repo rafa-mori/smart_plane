@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"reflect"
 
-	l "github.com/faelmori/logz"
+	l "github.com/rafa-mori/logz"
 	"github.com/google/uuid"
 	gl "github.com/rafa-mori/smart_plane/logger"
 	t "github.com/rafa-mori/smart_plane/types"

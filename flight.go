@@ -1,7 +1,7 @@
 package smart_plane
 
 import (
-	l "github.com/faelmori/logz"
+	l "github.com/rafa-mori/logz"
 	t "github.com/rafa-mori/smart_plane/types"
 
 	fgi "github.com/rafa-mori/gobe/factory/gateway"

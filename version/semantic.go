@@ -1,7 +1,7 @@
 package version
 
 import (
-	l "github.com/faelmori/logz"
+	l "github.com/rafa-mori/logz"
 	gl "github.com/rafa-mori/smart_plane/logger"
 
 	"github.com/spf13/cobra"

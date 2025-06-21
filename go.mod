@@ -3,7 +3,7 @@ module github.com/rafa-mori/smart_plane
 go 1.24.4
 
 require (
-	github.com/faelmori/logz v1.2.0
+	github.com/rafa-mori/logz v1.3.0
 	github.com/fatih/color v1.18.0
 	github.com/google/uuid v1.6.0
 	github.com/hyperledger/fabric-chaincode-go v0.0.0-20240704073638-9fb89180dc17
@@ -32,7 +32,7 @@ require (
 	github.com/docker/docker v28.2.2+incompatible // indirect
 	github.com/docker/go-connections v0.5.0 // indirect
 	github.com/docker/go-units v0.5.0 // indirect
-	github.com/faelmori/xtui v1.2.0 // indirect
+	github.com/rafa-mori/xtui v1.2.0 // indirect
 	github.com/felixge/httpsnoop v1.0.4 // indirect
 	github.com/gabriel-vasile/mimetype v1.4.9 // indirect
 	github.com/gin-contrib/sse v1.1.0 // indirect

@@ -143,3 +143,7 @@ Contribuições são bem-vindas! Sinta-se à vontade para abrir issues ou enviar
 [Rafael Mori](mailto:faelmori@gmail.com)  
 💼 [Follow me on GitHub](https://github.com/rafa-mori)  
 Estou aberto a colaborações e novas ideias. Se achou o projeto interessante, entre em contato!
+
+---
+
+**Made with care by the Mori family!** ❤️

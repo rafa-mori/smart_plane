@@ -39,3 +39,7 @@
 ## 10. Logs e Monitoramento Avançado
 - **Descrição**: Configurar o sistema de logs do `GoBE` para monitorar todas as interações com a blockchain e tokens.
 - **Benefícios**: Melhora a rastreabilidade e facilita a resolução de problemas.
+
+---
+
+**Made with care by the Mori family!** ❤️
